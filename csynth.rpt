@@ -1,0 +1,721 @@
+
+
+================================================================
+== Synthesis Summary Report of 'ffn_only_top'
+================================================================
++ General Information: 
+    * Date:           Sat Jun 27 16:41:56 2026
+    * Version:        2021.2 (Build 3367213 on Tue Oct 19 02:47:39 MDT 2021)
+    * Project:        build_hls_ffn
+    * Solution:       solution1 (Vitis Kernel Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcu250-figd2104-2L-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +----------------------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+------------+--------------+--------------+---------+
+    |                                      Modules                                     |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |          |            |              |              |         |
+    |                                      & Loops                                     |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|   BRAM   |     DSP    |      FF      |      LUT     |   URAM  |
+    +----------------------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+------------+--------------+--------------+---------+
+    |+ ffn_only_top                                                                    |  Timing|  -0.00|  1118214|  5.591e+06|         -|  1118215|     -|        no|  346 (6%)|  5120 (41%)|  693883 (20%)|  529706 (30%)|  16 (1%)|
+    | + ffn_only_top_Pipeline_FO_LOAD_INPUT_FO_LOAD_INPUT_PACK                         |  Timing|  -0.00|     3075|  1.538e+04|         -|     3075|     -|        no|         -|           -|     543 (~0%)|     184 (~0%)|        -|
+    |  o FO_LOAD_INPUT_FO_LOAD_INPUT_PACK                                              |       -|   3.65|     3073|  1.536e+04|         3|        1|  3072|       yes|         -|           -|             -|             -|        -|
+    | + init_fused_output                                                              |  Timing|  -0.00|     2485|  1.242e+04|         -|     2485|     -|        no|         -|           -|    5061 (~0%)|    6384 (~0%)|        -|
+    |  o FO_FUSED_INIT_OUT_BLOCK                                                       |       -|   3.65|     2484|  1.242e+04|       207|        -|    12|        no|         -|           -|             -|             -|        -|
+    |   + init_fused_output_Pipeline_FO_FUSED_INIT_LOAD_BIAS                           |  Timing|  -0.00|      137|    685.000|         -|      137|     -|        no|         -|           -|    2973 (~0%)|    6210 (~0%)|        -|
+    |    o FO_FUSED_INIT_LOAD_BIAS                                                     |       -|   3.65|      135|    675.000|        73|        1|    64|       yes|         -|           -|             -|             -|        -|
+    |   + init_fused_output_Pipeline_FO_FUSED_INIT_TOKEN                               |       -|   1.65|       66|    330.000|         -|       66|     -|        no|         -|           -|       9 (~0%)|      88 (~0%)|        -|
+    |    o FO_FUSED_INIT_TOKEN                                                         |       -|   3.65|       64|    320.000|         1|        1|    64|       yes|         -|           -|             -|             -|        -|
+    | + ffn_only_top_Pipeline_FO_STORE_OUTPUT_FO_STORE_OUTPUT_PACK                     |  Timing|  -0.00|     3075|  1.538e+04|         -|     3075|     -|        no|         -|           -|     549 (~0%)|    3610 (~0%)|        -|
+    |  o FO_STORE_OUTPUT_FO_STORE_OUTPUT_PACK                                          |       -|   3.65|     3073|  1.536e+04|         3|        1|  3072|       yes|         -|           -|             -|             -|        -|
+    | o FO_FUSED_TILE_LOOP                                                             |       -|   3.65|  1111920|  5.560e+06|     23165|        -|    48|        no|         -|           -|             -|             -|        -|
+    |  + compute_ffn1_gelu_tile                                                        |  Timing|  -0.00|    11736|  5.868e+04|         -|    11736|     -|        no|   64 (1%)|           -|   182577 (5%)|    77761 (4%)|        -|
+    |   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_LOAD_BIAS                      |  Timing|  -0.00|      137|    685.000|         -|      137|     -|        no|         -|           -|    2973 (~0%)|    5665 (~0%)|        -|
+    |    o FO_FUSED_FFN1_LOAD_BIAS                                                     |       -|   3.65|      135|    675.000|        73|        1|    64|       yes|         -|           -|             -|             -|        -|
+    |   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_INIT                           |       -|   1.85|       66|    330.000|         -|       66|     -|        no|         -|           -|       9 (~0%)|      52 (~0%)|        -|
+    |    o FO_FUSED_FFN1_INIT                                                          |       -|   3.65|       64|    320.000|         1|        1|    64|       yes|         -|           -|             -|             -|        -|
+    |   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_GELU_FO_FUSED_FFN1_GELU_GROUP  |  Timing|  -0.00|      152|    760.000|         -|      152|     -|        no|         -|           -|    36398 (1%)|    29610 (1%)|        -|
+    |    o FO_FUSED_FFN1_GELU_FO_FUSED_FFN1_GELU_GROUP                                 |       -|   3.65|      150|    750.000|        24|        1|   128|       yes|         -|           -|             -|             -|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |     + p_hls_fptosi_float_i32                                                     |       -|   0.60|        0|      0.000|         -|        1|     -|       yes|         -|           -|             -|     546 (~0%)|        -|
+    |   o FO_FUSED_FFN1_IN_PACK                                                        |       -|   3.65|    11376|  5.688e+04|       237|        -|    48|        no|         -|           -|             -|             -|        -|
+    |    + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_LOAD_W                        |  Timing|  -0.00|      137|    685.000|         -|      137|     -|        no|         -|           -|   33657 (~0%)|    9493 (~0%)|        -|
+    |     o FO_FUSED_FFN1_LOAD_W                                                       |       -|   3.65|      135|    675.000|        73|        1|    64|       yes|         -|           -|             -|             -|        -|
+    |    + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_TOKEN_DOT                     |       -|   0.67|       96|    480.000|         -|       96|     -|        no|         -|           -|    76742 (2%)|    4193 (~0%)|        -|
+    |     o FO_FUSED_FFN1_TOKEN_DOT                                                    |       -|   3.65|       94|    470.000|        32|        1|    64|       yes|         -|           -|             -|             -|        -|
+    |  + accumulate_ffn2_tile                                                          |  Timing|  -0.00|    11425|  5.712e+04|         -|    11425|     -|        no|         -|           -|   143476 (4%)|    35706 (2%)|        -|
+    |   o FO_FUSED_FFN2_OUT_BLOCK_FO_FUSED_FFN2_TILE_PACK                              |       -|   3.65|    11424|  5.712e+04|       238|        -|    48|        no|         -|           -|             -|             -|        -|
+    |    + accumulate_ffn2_tile_Pipeline_FO_FUSED_FFN2_LOAD_W                          |  Timing|  -0.00|      137|    685.000|         -|      137|     -|        no|         -|           -|   33657 (~0%)|    9517 (~0%)|        -|
+    |     o FO_FUSED_FFN2_LOAD_W                                                       |       -|   3.65|      135|    675.000|        73|        1|    64|       yes|         -|           -|             -|             -|        -|
+    |    + accumulate_ffn2_tile_Pipeline_FO_FUSED_FFN2_TOKEN_DOT                       |       -|   0.67|       96|    480.000|         -|       96|     -|        no|         -|           -|    76998 (2%)|    7603 (~0%)|        -|
+    |     o FO_FUSED_FFN2_TOKEN_DOT                                                    |       -|   3.65|       94|    470.000|        32|        1|    64|       yes|         -|           -|             -|             -|        -|
+    +----------------------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+------------+--------------+--------------+---------+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| Interface   | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   | Resource Estimate |
+|             | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |                   |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+| m_axi_gmem0 | 512 -> 512 | 64            | 64      | slave  | 0        | 512       | 64           | 64           | 32          | 32          | BRAM=30           |
+| m_axi_gmem1 | 512 -> 512 | 64            | 64      | slave  | 0        | 512       | 64           | 16           | 32          | 16          | BRAM=30           |
+| m_axi_gmem2 | 512 -> 512 | 64            | 64      | slave  | 0        | 512       | 64           | 16           | 32          | 16          | BRAM=30           |
++-------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+-------------------+
+
+* S_AXILITE Interfaces
++---------------+------------+---------------+--------+----------+
+| Interface     | Data Width | Address Width | Offset | Register |
++---------------+------------+---------------+--------+----------+
+| s_axi_control | 32         | 7             | 16     | 0        |
++---------------+------------+---------------+--------+----------+
+
+* S_AXILITE Registers
++---------------+--------------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------+
+| Interface     | Register     | Offset | Width | Access | Description                      | Bit Fields                                                             |
++---------------+--------------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------+
+| s_axi_control | CTRL         | 0x00   | 32    | RW     | Control signals                  | 0=AP_START 1=AP_DONE 2=AP_IDLE 3=AP_READY 4=AP_CONTINUE 7=AUTO_RESTART |
+| s_axi_control | GIER         | 0x04   | 32    | RW     | Global Interrupt Enable Register | 0=Enable                                                               |
+| s_axi_control | IP_IER       | 0x08   | 32    | RW     | IP Interrupt Enable Register     | 0=CHAN0_INT_EN 1=CHAN1_INT_EN 5=CHAN2_INT_EN                           |
+| s_axi_control | IP_ISR       | 0x0c   | 32    | RW     | IP Interrupt Status Register     | 0=CHAN0_INT_ST 1=CHAN1_INT_ST 5=CHAN2_INT_ST                           |
+| s_axi_control | hidden_in_1  | 0x10   | 32    | W      | Data signal of hidden_in         |                                                                        |
+| s_axi_control | hidden_in_2  | 0x14   | 32    | W      | Data signal of hidden_in         |                                                                        |
+| s_axi_control | ffn_up_w_1   | 0x1c   | 32    | W      | Data signal of ffn_up_w          |                                                                        |
+| s_axi_control | ffn_up_w_2   | 0x20   | 32    | W      | Data signal of ffn_up_w          |                                                                        |
+| s_axi_control | ffn_up_b_1   | 0x28   | 32    | W      | Data signal of ffn_up_b          |                                                                        |
+| s_axi_control | ffn_up_b_2   | 0x2c   | 32    | W      | Data signal of ffn_up_b          |                                                                        |
+| s_axi_control | ffn_down_w_1 | 0x34   | 32    | W      | Data signal of ffn_down_w        |                                                                        |
+| s_axi_control | ffn_down_w_2 | 0x38   | 32    | W      | Data signal of ffn_down_w        |                                                                        |
+| s_axi_control | ffn_down_b_1 | 0x40   | 32    | W      | Data signal of ffn_down_b        |                                                                        |
+| s_axi_control | ffn_down_b_2 | 0x44   | 32    | W      | Data signal of ffn_down_b        |                                                                        |
+| s_axi_control | hidden_out_1 | 0x4c   | 32    | W      | Data signal of hidden_out        |                                                                        |
+| s_axi_control | hidden_out_2 | 0x50   | 32    | W      | Data signal of hidden_out        |                                                                        |
++---------------+--------------+--------+-------+--------+----------------------------------+------------------------------------------------------------------------+
+
+* TOP LEVEL CONTROL
++-----------+---------------+-----------+
+| Interface | Type          | Ports     |
++-----------+---------------+-----------+
+| ap_clk    | clock         | ap_clk    |
+| ap_rst_n  | reset         | ap_rst_n  |
+| interrupt | interrupt     | interrupt |
+| ap_ctrl   | ap_ctrl_chain |           |
++-----------+---------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++------------+-----------+----------------------+
+| Argument   | Direction | Datatype             |
++------------+-----------+----------------------+
+| hidden_in  | inout     | ap_uint<512> const * |
+| ffn_up_w   | in        | ap_uint<512> const * |
+| ffn_up_b   | in        | ap_uint<512> const * |
+| ffn_down_w | in        | ap_uint<512> const * |
+| ffn_down_b | in        | ap_uint<512> const * |
+| hidden_out | inout     | ap_uint<512>*        |
++------------+-----------+----------------------+
+
+* SW-to-HW Mapping
++------------+---------------+-----------+----------+----------------------------------------+
+| Argument   | HW Interface  | HW Type   | HW Usage | HW Info                                |
++------------+---------------+-----------+----------+----------------------------------------+
+| hidden_in  | m_axi_gmem0   | interface |          |                                        |
+| hidden_in  | s_axi_control | register  | offset   | name=hidden_in_1 offset=0x10 range=32  |
+| hidden_in  | s_axi_control | register  | offset   | name=hidden_in_2 offset=0x14 range=32  |
+| ffn_up_w   | m_axi_gmem1   | interface |          |                                        |
+| ffn_up_w   | s_axi_control | register  | offset   | name=ffn_up_w_1 offset=0x1c range=32   |
+| ffn_up_w   | s_axi_control | register  | offset   | name=ffn_up_w_2 offset=0x20 range=32   |
+| ffn_up_b   | m_axi_gmem1   | interface |          |                                        |
+| ffn_up_b   | s_axi_control | register  | offset   | name=ffn_up_b_1 offset=0x28 range=32   |
+| ffn_up_b   | s_axi_control | register  | offset   | name=ffn_up_b_2 offset=0x2c range=32   |
+| ffn_down_w | m_axi_gmem2   | interface |          |                                        |
+| ffn_down_w | s_axi_control | register  | offset   | name=ffn_down_w_1 offset=0x34 range=32 |
+| ffn_down_w | s_axi_control | register  | offset   | name=ffn_down_w_2 offset=0x38 range=32 |
+| ffn_down_b | m_axi_gmem2   | interface |          |                                        |
+| ffn_down_b | s_axi_control | register  | offset   | name=ffn_down_b_1 offset=0x40 range=32 |
+| ffn_down_b | s_axi_control | register  | offset   | name=ffn_down_b_2 offset=0x44 range=32 |
+| hidden_out | m_axi_gmem0   | interface |          |                                        |
+| hidden_out | s_axi_control | register  | offset   | name=hidden_out_1 offset=0x4c range=32 |
+| hidden_out | s_axi_control | register  | offset   | name=hidden_out_2 offset=0x50 range=32 |
++------------+---------------+-----------+----------+----------------------------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+ Note: All burst requests might be further partitioned into multiple requests during RTL generation based on max_read_burst_length or max_write_burst_length settings.
+
+* Inferred Burst Summary
++--------------+-----------------+-----------+--------+-------+--------------------+
+| HW Interface | Loop            | Direction | Length | Width | Location           |
++--------------+-----------------+-----------+--------+-------+--------------------+
+| m_axi_gmem0  | FO_LOAD_INPUT   | read      | 3072   | 512   | ffn_only.cpp:229:5 |
+| m_axi_gmem0  | FO_STORE_OUTPUT | write     | 3072   | 512   | ffn_only.cpp:253:5 |
++--------------+-----------------+-----------+--------+-------+--------------------+
+
+* Inferred Bursts and Widening Missed
++--------------+------------+-------------------------+----------------------------------------------------------------------------------------------------------------------+------------+---------------------+
+| HW Interface | Variable   | Loop                    | Problem                                                                                                              | Resolution | Location            |
++--------------+------------+-------------------------+----------------------------------------------------------------------------------------------------------------------+------------+---------------------+
+| m_axi_gmem2  | bias_blob  | FO_FUSED_INIT_LOAD_BIAS | Could not analyze pattern                                                                                            | 214-229    | ffn_only.cpp:131:9  |
+| m_axi_gmem1  | bias_blob  | FO_FUSED_FFN1_LOAD_BIAS | Could not analyze pattern                                                                                            | 214-229    | ffn_only.cpp:60:5   |
+| m_axi_gmem1  | weight     | FO_FUSED_FFN1_LOAD_W    | Stride is incompatible                                                                                               | 214-230    | ffn_only.cpp:82:9   |
+| m_axi_gmem2  | weight     | FO_FUSED_FFN2_LOAD_W    | Stride is incompatible                                                                                               | 214-230    | ffn_only.cpp:167:13 |
+| m_axi_gmem0  | hidden_out |                         | Could not widen since the size of type 'i512' is greater than or equal to the max_widen_bitwidth threshold of '512'. |            | ffn_only.cpp:253:5  |
+| m_axi_gmem0  | hidden_in  |                         | Could not widen since the size of type 'i512' is greater than or equal to the max_widen_bitwidth threshold of '512'. |            | ffn_only.cpp:229:5  |
++--------------+------------+-------------------------+----------------------------------------------------------------------------------------------------------------------+------------+---------------------+
+
+    * Resolution URL: www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=XXX-YYY.html (replace XXX-YYY with column value)
+
+================================================================
+== Bind Op Report
+================================================================
++---------------------------------------------------------------------------------+------+--------+-----------------+-----+--------+---------+
+| Name                                                                            | DSP  | Pragma | Variable        | Op  | Impl   | Latency |
++---------------------------------------------------------------------------------+------+--------+-----------------+-----+--------+---------+
+| + ffn_only_top                                                                  | 5120 |        |                 |     |        |         |
+|   tile_base_3_fu_1250_p2                                                        | -    |        | tile_base_3     | add | fabric | 0       |
+|  + ffn_only_top_Pipeline_FO_LOAD_INPUT_FO_LOAD_INPUT_PACK                       | 0    |        |                 |     |        |         |
+|    add_ln229_1_fu_487_p2                                                        | -    |        | add_ln229_1     | add | fabric | 0       |
+|    add_ln229_fu_664_p2                                                          | -    |        | add_ln229       | add | fabric | 0       |
+|    sub_ln239_fu_716_p2                                                          | -    |        | sub_ln239       | add | tadder | 0       |
+|    add_ln239_fu_726_p2                                                          | -    |        | add_ln239       | add | tadder | 0       |
+|    add_ln231_fu_816_p2                                                          | -    |        | add_ln231       | add | fabric | 0       |
+|  + init_fused_output                                                            | 0    |        |                 |     |        |         |
+|    add_ln126_fu_1326_p2                                                         | -    |        | add_ln126       | add | fabric | 0       |
+|   + init_fused_output_Pipeline_FO_FUSED_INIT_LOAD_BIAS                          | 0    |        |                 |     |        |         |
+|     add_ln131_fu_1920_p2                                                        | -    |        | add_ln131       | add | fabric | 0       |
+|     add_ln75_fu_1964_p2                                                         | -    |        | add_ln75        | add | fabric | 0       |
+|     sub_ln708_fu_2035_p2                                                        | -    |        | sub_ln708       | sub | fabric | 0       |
+|     sub_ln708_1_fu_2047_p2                                                      | -    |        | sub_ln708_1     | sub | fabric | 0       |
+|     sub_ln708_2_fu_2076_p2                                                      | -    |        | sub_ln708_2     | sub | fabric | 0       |
+|   + init_fused_output_Pipeline_FO_FUSED_INIT_TOKEN                              | 0    |        |                 |     |        |         |
+|     add_ln137_fu_1866_p2                                                        | -    |        | add_ln137       | add | fabric | 0       |
+|     sub_ln142_fu_1896_p2                                                        | -    |        | sub_ln142       | add | tadder | 0       |
+|     add_ln142_fu_1902_p2                                                        | -    |        | add_ln142       | add | tadder | 0       |
+|  + compute_ffn1_gelu_tile                                                       | 0    |        |                 |     |        |         |
+|    add_ln76_fu_12825_p2                                                         | -    |        | add_ln76        | add | fabric | 0       |
+|   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_LOAD_BIAS                     | 0    |        |                 |     |        |         |
+|     add_ln60_fu_1092_p2                                                         | -    |        | add_ln60        | add | fabric | 0       |
+|     add_ln73_fu_1110_p2                                                         | -    |        | add_ln73        | add | fabric | 0       |
+|     add_ln73_1_fu_1116_p2                                                       | -    |        | add_ln73_1      | add | fabric | 0       |
+|     add_ln75_fu_1144_p2                                                         | -    |        | add_ln75        | add | fabric | 0       |
+|     sub_ln708_fu_1211_p2                                                        | -    |        | sub_ln708       | sub | fabric | 0       |
+|     sub_ln708_3_fu_1223_p2                                                      | -    |        | sub_ln708_3     | sub | fabric | 0       |
+|     sub_ln708_4_fu_1252_p2                                                      | -    |        | sub_ln708_4     | sub | fabric | 0       |
+|   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_INIT                          | 0    |        |                 |     |        |         |
+|     add_ln66_fu_1844_p2                                                         | -    |        | add_ln66        | add | fabric | 0       |
+|   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_LOAD_W                        | 0    |        |                 |     |        |         |
+|     add_ln82_fu_27067_p2                                                        | -    |        | add_ln82        | add | fabric | 0       |
+|     add_ln84_fu_27077_p2                                                        | -    |        | add_ln84        | add | fabric | 0       |
+|     sub_ln84_fu_27107_p2                                                        | -    |        | sub_ln84        | add | tadder | 0       |
+|     add_ln84_11089_fu_27113_p2                                                  | -    |        | add_ln84_11089  | add | tadder | 0       |
+|     empty_160_fu_27131_p2                                                       | -    |        | empty_160       | add | fabric | 0       |
+|   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_GELU_FO_FUSED_FFN1_GELU_GROUP | 0    |        |                 |     |        |         |
+|     add_ln106_1_fu_4460_p2                                                      | -    |        | add_ln106_1     | add | fabric | 0       |
+|     add_ln106_fu_4472_p2                                                        | -    |        | add_ln106       | add | fabric | 0       |
+|     add_ln108_fu_4602_p2                                                        | -    |        | add_ln108       | add | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|    + p_hls_fptosi_float_i32                                                     | 0    |        |                 |     |        |         |
+|      add_ln344_fu_88_p2                                                         | -    |        | add_ln344       | add | fabric | 0       |
+|      sub_ln1364_fu_102_p2                                                       | -    |        | sub_ln1364      | sub | fabric | 0       |
+|      result_V_2_fu_170_p2                                                       | -    |        | result_V_2      | sub | fabric | 0       |
+|   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_TOKEN_DOT                     | 0    |        |                 |     |        |         |
+|     add_ln88_fu_17916_p2                                                        | -    |        | add_ln88        | add | fabric | 0       |
+|     sub_ln95_fu_18014_p2                                                        | -    |        | sub_ln95        | add | tadder | 0       |
+|     add_ln95_fu_18020_p2                                                        | -    |        | add_ln95        | add | tadder | 0       |
+|  + accumulate_ffn2_tile                                                         | 0    |        |                 |     |        |         |
+|    add_ln159_1_fu_11938_p2                                                      | -    |        | add_ln159_1     | add | fabric | 0       |
+|    add_ln159_fu_11950_p2                                                        | -    |        | add_ln159       | add | fabric | 0       |
+|    add_ln161_fu_11992_p2                                                        | -    |        | add_ln161       | add | fabric | 0       |
+|   + accumulate_ffn2_tile_Pipeline_FO_FUSED_FFN2_LOAD_W                          | 0    |        |                 |     |        |         |
+|     add_ln167_fu_27081_p2                                                       | -    |        | add_ln167       | add | fabric | 0       |
+|     add_ln170_fu_27091_p2                                                       | -    |        | add_ln170       | add | fabric | 0       |
+|     sub_ln170_fu_27121_p2                                                       | -    |        | sub_ln170       | sub | fabric | 0       |
+|     tmp1_fu_27127_p2                                                            | -    |        | tmp1            | add | tadder | 0       |
+|     add_ln170_21019_fu_27133_p2                                                 | -    |        | add_ln170_21019 | add | tadder | 0       |
+|     empty_1248_fu_27151_p2                                                      | -    |        | empty_1248      | add | fabric | 0       |
+|   + accumulate_ffn2_tile_Pipeline_FO_FUSED_FFN2_TOKEN_DOT                       | 0    |        |                 |     |        |         |
+|     add_ln175_fu_18648_p2                                                       | -    |        | add_ln175       | add | fabric | 0       |
+|     sub_ln187_fu_18746_p2                                                       | -    |        | sub_ln187       | add | tadder | 0       |
+|     add_ln187_fu_18752_p2                                                       | -    |        | add_ln187       | add | tadder | 0       |
+|  + ffn_only_top_Pipeline_FO_STORE_OUTPUT_FO_STORE_OUTPUT_PACK                   | 0    |        |                 |     |        |         |
+|    add_ln253_1_fu_1104_p2                                                       | -    |        | add_ln253_1     | add | fabric | 0       |
+|    add_ln253_fu_1116_p2                                                         | -    |        | add_ln253       | add | fabric | 0       |
+|    sub_ln262_fu_1168_p2                                                         | -    |        | sub_ln262       | add | tadder | 0       |
+|    add_ln262_fu_1188_p2                                                         | -    |        | add_ln262       | add | tadder | 0       |
+|    add_ln255_fu_1262_p2                                                         | -    |        | add_ln255       | add | fabric | 0       |
++---------------------------------------------------------------------------------+------+--------+-----------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++---------------------------------------------------------------------------------+------+------+--------+---------------------------------+---------+------+---------+
+| Name                                                                            | BRAM | URAM | Pragma | Variable                        | Storage | Impl | Latency |
++---------------------------------------------------------------------------------+------+------+--------+---------------------------------+---------+------+---------+
+| + ffn_only_top                                                                  | 346  | 16   |        |                                 |         |      |         |
+|   hidden_U                                                                      | -    | 1    | pragma | hidden                          | ram_2p  | uram | 1       |
+|   hidden_1_U                                                                    | -    | 1    | pragma | hidden_1                        | ram_2p  | uram | 1       |
+|   hidden_2_U                                                                    | -    | 1    | pragma | hidden_2                        | ram_2p  | uram | 1       |
+|   hidden_3_U                                                                    | -    | 1    | pragma | hidden_3                        | ram_2p  | uram | 1       |
+|   hidden_4_U                                                                    | -    | 1    | pragma | hidden_4                        | ram_2p  | uram | 1       |
+|   hidden_5_U                                                                    | -    | 1    | pragma | hidden_5                        | ram_2p  | uram | 1       |
+|   hidden_6_U                                                                    | -    | 1    | pragma | hidden_6                        | ram_2p  | uram | 1       |
+|   hidden_7_U                                                                    | -    | 1    | pragma | hidden_7                        | ram_2p  | uram | 1       |
+|   hidden_8_U                                                                    | -    | 1    | pragma | hidden_8                        | ram_2p  | uram | 1       |
+|   hidden_9_U                                                                    | -    | 1    | pragma | hidden_9                        | ram_2p  | uram | 1       |
+|   p_ZZ12ffn_only_topE6hidden_10_U                                               | -    | 1    | pragma | p_ZZ12ffn_only_topE6hidden_10   | ram_2p  | uram | 1       |
+|   p_ZZ12ffn_only_topE6hidden_11_U                                               | -    | 1    | pragma | p_ZZ12ffn_only_topE6hidden_11   | ram_2p  | uram | 1       |
+|   p_ZZ12ffn_only_topE6hidden_12_U                                               | -    | 1    | pragma | p_ZZ12ffn_only_topE6hidden_12   | ram_2p  | uram | 1       |
+|   p_ZZ12ffn_only_topE6hidden_13_U                                               | -    | 1    | pragma | p_ZZ12ffn_only_topE6hidden_13   | ram_2p  | uram | 1       |
+|   p_ZZ12ffn_only_topE6hidden_14_U                                               | -    | 1    | pragma | p_ZZ12ffn_only_topE6hidden_14   | ram_2p  | uram | 1       |
+|   p_ZZ12ffn_only_topE6hidden_15_U                                               | -    | 1    | pragma | p_ZZ12ffn_only_topE6hidden_15   | ram_2p  | uram | 1       |
+|   output_r_U                                                                    | 2    | -    | pragma | output_r                        | ram_2p  | bram | 1       |
+|   output_1_U                                                                    | 2    | -    | pragma | output_1                        | ram_2p  | bram | 1       |
+|   output_2_U                                                                    | 2    | -    | pragma | output_2                        | ram_2p  | bram | 1       |
+|   output_3_U                                                                    | 2    | -    | pragma | output_3                        | ram_2p  | bram | 1       |
+|   output_4_U                                                                    | 2    | -    | pragma | output_4                        | ram_2p  | bram | 1       |
+|   output_5_U                                                                    | 2    | -    | pragma | output_5                        | ram_2p  | bram | 1       |
+|   output_6_U                                                                    | 2    | -    | pragma | output_6                        | ram_2p  | bram | 1       |
+|   output_7_U                                                                    | 2    | -    | pragma | output_7                        | ram_2p  | bram | 1       |
+|   output_8_U                                                                    | 2    | -    | pragma | output_8                        | ram_2p  | bram | 1       |
+|   output_9_U                                                                    | 2    | -    | pragma | output_9                        | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_10_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_10   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_11_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_11   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_12_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_12   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_13_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_13   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_14_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_14   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_15_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_15   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_16_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_16   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_17_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_17   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_18_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_18   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_19_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_19   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_20_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_20   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_21_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_21   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_22_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_22   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_23_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_23   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_24_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_24   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_25_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_25   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_26_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_26   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_27_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_27   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_28_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_28   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_29_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_29   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_30_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_30   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_31_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_31   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_32_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_32   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_33_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_33   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_34_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_34   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_35_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_35   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_36_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_36   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_37_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_37   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_38_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_38   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_39_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_39   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_40_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_40   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_41_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_41   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_42_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_42   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_43_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_43   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_44_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_44   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_45_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_45   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_46_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_46   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_47_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_47   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_48_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_48   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_49_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_49   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_50_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_50   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_51_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_51   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_52_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_52   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_53_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_53   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_54_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_54   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_55_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_55   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_56_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_56   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_57_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_57   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_58_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_58   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_59_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_59   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_60_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_60   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_61_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_61   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_62_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_62   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE6output_63_U                                               | 2    | -    | pragma | p_ZZ12ffn_only_topE6output_63   | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_31_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_31 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_30_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_30 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_29_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_29 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_28_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_28 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_27_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_27 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_26_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_26 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_25_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_25 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_24_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_24 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_23_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_23 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_22_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_22 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_21_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_21 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_20_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_20 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_19_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_19 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_18_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_18 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_17_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_17 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_16_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_16 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_15_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_15 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_14_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_14 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_13_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_13 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_12_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_12 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_11_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_11 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_10_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_10 | ram_2p  | bram | 1       |
+|   ffn_tile_9_U                                                                  | 1    | -    | pragma | ffn_tile_9                      | ram_2p  | bram | 1       |
+|   ffn_tile_8_U                                                                  | 1    | -    | pragma | ffn_tile_8                      | ram_2p  | bram | 1       |
+|   ffn_tile_7_U                                                                  | 1    | -    | pragma | ffn_tile_7                      | ram_2p  | bram | 1       |
+|   ffn_tile_6_U                                                                  | 1    | -    | pragma | ffn_tile_6                      | ram_2p  | bram | 1       |
+|   ffn_tile_5_U                                                                  | 1    | -    | pragma | ffn_tile_5                      | ram_2p  | bram | 1       |
+|   ffn_tile_4_U                                                                  | 1    | -    | pragma | ffn_tile_4                      | ram_2p  | bram | 1       |
+|   ffn_tile_3_U                                                                  | 1    | -    | pragma | ffn_tile_3                      | ram_2p  | bram | 1       |
+|   ffn_tile_2_U                                                                  | 1    | -    | pragma | ffn_tile_2                      | ram_2p  | bram | 1       |
+|   ffn_tile_1_U                                                                  | 1    | -    | pragma | ffn_tile_1                      | ram_2p  | bram | 1       |
+|   ffn_tile_U                                                                    | 1    | -    | pragma | ffn_tile                        | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_32_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_32 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_33_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_33 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_34_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_34 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_35_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_35 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_36_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_36 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_37_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_37 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_38_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_38 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_39_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_39 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_40_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_40 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_41_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_41 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_42_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_42 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_43_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_43 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_44_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_44 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_45_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_45 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_46_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_46 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_47_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_47 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_48_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_48 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_49_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_49 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_50_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_50 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_51_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_51 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_52_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_52 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_53_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_53 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_54_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_54 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_55_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_55 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_56_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_56 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_57_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_57 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_58_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_58 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_59_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_59 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_60_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_60 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_61_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_61 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_62_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_62 | ram_2p  | bram | 1       |
+|   p_ZZ12ffn_only_topE8ffn_tile_63_U                                             | 1    | -    | pragma | p_ZZ12ffn_only_topE8ffn_tile_63 | ram_2p  | bram | 1       |
+|  + compute_ffn1_gelu_tile                                                       | 64   | 0    |        |                                 |         |      |         |
+|    acc_U                                                                        | 1    | -    | yes    | acc                             | ram_2p  | bram | 1       |
+|    acc_1_U                                                                      | 1    | -    | yes    | acc_1                           | ram_2p  | bram | 1       |
+|    acc_2_U                                                                      | 1    | -    | yes    | acc_2                           | ram_2p  | bram | 1       |
+|    acc_3_U                                                                      | 1    | -    | yes    | acc_3                           | ram_2p  | bram | 1       |
+|    acc_4_U                                                                      | 1    | -    | yes    | acc_4                           | ram_2p  | bram | 1       |
+|    acc_5_U                                                                      | 1    | -    | yes    | acc_5                           | ram_2p  | bram | 1       |
+|    acc_6_U                                                                      | 1    | -    | yes    | acc_6                           | ram_2p  | bram | 1       |
+|    acc_7_U                                                                      | 1    | -    | yes    | acc_7                           | ram_2p  | bram | 1       |
+|    acc_8_U                                                                      | 1    | -    | yes    | acc_8                           | ram_2p  | bram | 1       |
+|    acc_9_U                                                                      | 1    | -    | yes    | acc_9                           | ram_2p  | bram | 1       |
+|    acc_10_U                                                                     | 1    | -    | yes    | acc_10                          | ram_2p  | bram | 1       |
+|    acc_11_U                                                                     | 1    | -    | yes    | acc_11                          | ram_2p  | bram | 1       |
+|    acc_12_U                                                                     | 1    | -    | yes    | acc_12                          | ram_2p  | bram | 1       |
+|    acc_13_U                                                                     | 1    | -    | yes    | acc_13                          | ram_2p  | bram | 1       |
+|    acc_14_U                                                                     | 1    | -    | yes    | acc_14                          | ram_2p  | bram | 1       |
+|    acc_15_U                                                                     | 1    | -    | yes    | acc_15                          | ram_2p  | bram | 1       |
+|    acc_16_U                                                                     | 1    | -    | yes    | acc_16                          | ram_2p  | bram | 1       |
+|    acc_17_U                                                                     | 1    | -    | yes    | acc_17                          | ram_2p  | bram | 1       |
+|    acc_18_U                                                                     | 1    | -    | yes    | acc_18                          | ram_2p  | bram | 1       |
+|    acc_19_U                                                                     | 1    | -    | yes    | acc_19                          | ram_2p  | bram | 1       |
+|    acc_20_U                                                                     | 1    | -    | yes    | acc_20                          | ram_2p  | bram | 1       |
+|    acc_21_U                                                                     | 1    | -    | yes    | acc_21                          | ram_2p  | bram | 1       |
+|    acc_22_U                                                                     | 1    | -    | yes    | acc_22                          | ram_2p  | bram | 1       |
+|    acc_23_U                                                                     | 1    | -    | yes    | acc_23                          | ram_2p  | bram | 1       |
+|    acc_24_U                                                                     | 1    | -    | yes    | acc_24                          | ram_2p  | bram | 1       |
+|    acc_25_U                                                                     | 1    | -    | yes    | acc_25                          | ram_2p  | bram | 1       |
+|    acc_26_U                                                                     | 1    | -    | yes    | acc_26                          | ram_2p  | bram | 1       |
+|    acc_27_U                                                                     | 1    | -    | yes    | acc_27                          | ram_2p  | bram | 1       |
+|    acc_28_U                                                                     | 1    | -    | yes    | acc_28                          | ram_2p  | bram | 1       |
+|    acc_29_U                                                                     | 1    | -    | yes    | acc_29                          | ram_2p  | bram | 1       |
+|    acc_30_U                                                                     | 1    | -    | yes    | acc_30                          | ram_2p  | bram | 1       |
+|    acc_31_U                                                                     | 1    | -    | yes    | acc_31                          | ram_2p  | bram | 1       |
+|    acc_32_U                                                                     | 1    | -    | yes    | acc_32                          | ram_2p  | bram | 1       |
+|    acc_33_U                                                                     | 1    | -    | yes    | acc_33                          | ram_2p  | bram | 1       |
+|    acc_34_U                                                                     | 1    | -    | yes    | acc_34                          | ram_2p  | bram | 1       |
+|    acc_35_U                                                                     | 1    | -    | yes    | acc_35                          | ram_2p  | bram | 1       |
+|    acc_36_U                                                                     | 1    | -    | yes    | acc_36                          | ram_2p  | bram | 1       |
+|    acc_37_U                                                                     | 1    | -    | yes    | acc_37                          | ram_2p  | bram | 1       |
+|    acc_38_U                                                                     | 1    | -    | yes    | acc_38                          | ram_2p  | bram | 1       |
+|    acc_39_U                                                                     | 1    | -    | yes    | acc_39                          | ram_2p  | bram | 1       |
+|    acc_40_U                                                                     | 1    | -    | yes    | acc_40                          | ram_2p  | bram | 1       |
+|    acc_41_U                                                                     | 1    | -    | yes    | acc_41                          | ram_2p  | bram | 1       |
+|    acc_42_U                                                                     | 1    | -    | yes    | acc_42                          | ram_2p  | bram | 1       |
+|    acc_43_U                                                                     | 1    | -    | yes    | acc_43                          | ram_2p  | bram | 1       |
+|    acc_44_U                                                                     | 1    | -    | yes    | acc_44                          | ram_2p  | bram | 1       |
+|    acc_45_U                                                                     | 1    | -    | yes    | acc_45                          | ram_2p  | bram | 1       |
+|    acc_46_U                                                                     | 1    | -    | yes    | acc_46                          | ram_2p  | bram | 1       |
+|    acc_47_U                                                                     | 1    | -    | yes    | acc_47                          | ram_2p  | bram | 1       |
+|    acc_48_U                                                                     | 1    | -    | yes    | acc_48                          | ram_2p  | bram | 1       |
+|    acc_49_U                                                                     | 1    | -    | yes    | acc_49                          | ram_2p  | bram | 1       |
+|    acc_50_U                                                                     | 1    | -    | yes    | acc_50                          | ram_2p  | bram | 1       |
+|    acc_51_U                                                                     | 1    | -    | yes    | acc_51                          | ram_2p  | bram | 1       |
+|    acc_52_U                                                                     | 1    | -    | yes    | acc_52                          | ram_2p  | bram | 1       |
+|    acc_53_U                                                                     | 1    | -    | yes    | acc_53                          | ram_2p  | bram | 1       |
+|    acc_54_U                                                                     | 1    | -    | yes    | acc_54                          | ram_2p  | bram | 1       |
+|    acc_55_U                                                                     | 1    | -    | yes    | acc_55                          | ram_2p  | bram | 1       |
+|    acc_56_U                                                                     | 1    | -    | yes    | acc_56                          | ram_2p  | bram | 1       |
+|    acc_57_U                                                                     | 1    | -    | yes    | acc_57                          | ram_2p  | bram | 1       |
+|    acc_58_U                                                                     | 1    | -    | yes    | acc_58                          | ram_2p  | bram | 1       |
+|    acc_59_U                                                                     | 1    | -    | yes    | acc_59                          | ram_2p  | bram | 1       |
+|    acc_60_U                                                                     | 1    | -    | yes    | acc_60                          | ram_2p  | bram | 1       |
+|    acc_61_U                                                                     | 1    | -    | yes    | acc_61                          | ram_2p  | bram | 1       |
+|    acc_62_U                                                                     | 1    | -    | yes    | acc_62                          | ram_2p  | bram | 1       |
+|    acc_63_U                                                                     | 1    | -    | yes    | acc_63                          | ram_2p  | bram | 1       |
+|   + compute_ffn1_gelu_tile_Pipeline_FO_FUSED_FFN1_GELU_FO_FUSED_FFN1_GELU_GROUP | 0    | 0    |        |                                 |         |      |         |
+|     FO_GELU_PWL_SLOPE_U                                                         | -    | -    |        | FO_GELU_PWL_SLOPE               | rom_np  | auto | 1       |
+|     FO_GELU_PWL_INTERCEPT_U                                                     | -    | -    |        | FO_GELU_PWL_INTERCEPT           | rom_np  | auto | 1       |
++---------------------------------------------------------------------------------+------+------+--------+---------------------------------+---------+------+---------+
+
+
+================================================================
+== User Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------------+-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------+
+| Type            | Options                                                                                                                     | Location                                          |
++-----------------+-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------+
+| inline          |                                                                                                                             | ./ffn_only.h:38 in fo_uint32_to_float             |
+| inline          |                                                                                                                             | ./ffn_only.h:45 in fo_float_to_uint32             |
+| inline          |                                                                                                                             | ./ffn_only.h:52 in fo_unpack_bus16                |
+| array_partition | variable=lane complete dim=1                                                                                                | ./ffn_only.h:53 in fo_unpack_bus16, lane          |
+| unroll          |                                                                                                                             | ./ffn_only.h:55 in fo_unpack_bus16                |
+| inline          |                                                                                                                             | ./ffn_only.h:61 in fo_pack_bus16                  |
+| array_partition | variable=lane complete dim=1                                                                                                | ./ffn_only.h:62 in fo_pack_bus16, lane            |
+| unroll          |                                                                                                                             | ./ffn_only.h:65 in fo_pack_bus16                  |
+| inline          |                                                                                                                             | ./ffn_only.h:72 in fo_read_packed_float           |
+| inline          |                                                                                                                             | ./ffn_only.h:80 in fo_sum16_tree                  |
+| array_partition | variable=value complete dim=1                                                                                               | ./ffn_only.h:84 in fo_sum16_tree, value           |
+| array_partition | variable=s8 complete dim=1                                                                                                  | ./ffn_only.h:85 in fo_sum16_tree, s8              |
+| array_partition | variable=s4 complete dim=1                                                                                                  | ./ffn_only.h:86 in fo_sum16_tree, s4              |
+| array_partition | variable=s2 complete dim=1                                                                                                  | ./ffn_only.h:87 in fo_sum16_tree, s2              |
+| unroll          |                                                                                                                             | ./ffn_only.h:89 in fo_sum16_tree                  |
+| unroll          |                                                                                                                             | ./ffn_only.h:93 in fo_sum16_tree                  |
+| unroll          |                                                                                                                             | ./ffn_only.h:97 in fo_sum16_tree                  |
+| inline          |                                                                                                                             | ./ffn_only.h:104 in fo_dot16                      |
+| array_partition | variable=lhs complete dim=1                                                                                                 | ./ffn_only.h:106 in fo_dot16, lhs                 |
+| array_partition | variable=rhs complete dim=1                                                                                                 | ./ffn_only.h:107 in fo_dot16, rhs                 |
+| array_partition | variable=product complete dim=1                                                                                             | ./ffn_only.h:108 in fo_dot16, product             |
+| bind_op         | variable=product op=fmul impl=maxdsp                                                                                        | ./ffn_only.h:109 in fo_dot16, product             |
+| unroll          |                                                                                                                             | ./ffn_only.h:111 in fo_dot16                      |
+| inline          |                                                                                                                             | ffn_only.cpp:29 in fo_gelu                        |
+| inline          | off                                                                                                                         | ffn_only.cpp:51 in compute_ffn1_gelu_tile         |
+| array_partition | variable=bias complete dim=1                                                                                                | ffn_only.cpp:55 in compute_ffn1_gelu_tile, bias   |
+| bind_storage    | variable=acc type=RAM_2P impl=BRAM                                                                                          | ffn_only.cpp:56 in compute_ffn1_gelu_tile, acc    |
+| array_partition | variable=acc complete dim=2                                                                                                 | ffn_only.cpp:57 in compute_ffn1_gelu_tile, acc    |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:61 in compute_ffn1_gelu_tile         |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:67 in compute_ffn1_gelu_tile         |
+| unroll          |                                                                                                                             | ffn_only.cpp:70 in compute_ffn1_gelu_tile         |
+| array_partition | variable=w_lane complete dim=1                                                                                              | ffn_only.cpp:78 in compute_ffn1_gelu_tile, w_lane |
+| array_partition | variable=w_lane complete dim=2                                                                                              | ffn_only.cpp:79 in compute_ffn1_gelu_tile, w_lane |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:83 in compute_ffn1_gelu_tile         |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:89 in compute_ffn1_gelu_tile         |
+| array_partition | variable=x_lane complete dim=1                                                                                              | ffn_only.cpp:91 in compute_ffn1_gelu_tile, x_lane |
+| unroll          |                                                                                                                             | ffn_only.cpp:94 in compute_ffn1_gelu_tile         |
+| unroll          |                                                                                                                             | ffn_only.cpp:99 in compute_ffn1_gelu_tile         |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:109 in compute_ffn1_gelu_tile        |
+| unroll          |                                                                                                                             | ffn_only.cpp:112 in compute_ffn1_gelu_tile        |
+| inline          | off                                                                                                                         | ffn_only.cpp:123 in init_fused_output             |
+| array_partition | variable=bias complete dim=1                                                                                                | ffn_only.cpp:128 in init_fused_output, bias       |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:132 in init_fused_output             |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:138 in init_fused_output             |
+| unroll          |                                                                                                                             | ffn_only.cpp:141 in init_fused_output             |
+| inline          | off                                                                                                                         | ffn_only.cpp:154 in accumulate_ffn2_tile          |
+| array_partition | variable=w_lane complete dim=1                                                                                              | ffn_only.cpp:163 in accumulate_ffn2_tile, w_lane  |
+| array_partition | variable=w_lane complete dim=2                                                                                              | ffn_only.cpp:164 in accumulate_ffn2_tile, w_lane  |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:168 in accumulate_ffn2_tile          |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:176 in accumulate_ffn2_tile          |
+| array_partition | variable=x_lane complete dim=1                                                                                              | ffn_only.cpp:178 in accumulate_ffn2_tile, x_lane  |
+| unroll          |                                                                                                                             | ffn_only.cpp:181 in accumulate_ffn2_tile          |
+| unroll          |                                                                                                                             | ffn_only.cpp:186 in accumulate_ffn2_tile          |
+| inline          | off                                                                                                                         | ffn_only.cpp:203 in ffn_only_top                  |
+| interface       | m_axi port=hidden_in offset=slave bundle=gmem0 depth=FO_TOKEN_WORDS max_read_burst_length=64 num_read_outstanding=32        | ffn_only.cpp:204 in ffn_only_top, hidden_in       |
+| interface       | m_axi port=hidden_out offset=slave bundle=gmem0 depth=FO_TOKEN_WORDS max_write_burst_length=64 num_write_outstanding=32     | ffn_only.cpp:205 in ffn_only_top, hidden_out      |
+| interface       | m_axi port=ffn_up_w offset=slave bundle=gmem1 depth=FO_FFN1_WEIGHT_WORDS max_read_burst_length=64 num_read_outstanding=32   | ffn_only.cpp:206 in ffn_only_top, ffn_up_w        |
+| interface       | m_axi port=ffn_up_b offset=slave bundle=gmem1 depth=FO_FFN1_BIAS_WORDS                                                      | ffn_only.cpp:207 in ffn_only_top, ffn_up_b        |
+| interface       | m_axi port=ffn_down_w offset=slave bundle=gmem2 depth=FO_FFN2_WEIGHT_WORDS max_read_burst_length=64 num_read_outstanding=32 | ffn_only.cpp:208 in ffn_only_top, ffn_down_w      |
+| interface       | m_axi port=ffn_down_b offset=slave bundle=gmem2 depth=FO_FFN2_BIAS_WORDS                                                    | ffn_only.cpp:209 in ffn_only_top, ffn_down_b      |
+| interface       | s_axilite port=hidden_in                                                                                                    | ffn_only.cpp:210 in ffn_only_top, hidden_in       |
+| interface       | s_axilite port=ffn_up_w                                                                                                     | ffn_only.cpp:211 in ffn_only_top, ffn_up_w        |
+| interface       | s_axilite port=ffn_up_b                                                                                                     | ffn_only.cpp:212 in ffn_only_top, ffn_up_b        |
+| interface       | s_axilite port=ffn_down_w                                                                                                   | ffn_only.cpp:213 in ffn_only_top, ffn_down_w      |
+| interface       | s_axilite port=ffn_down_b                                                                                                   | ffn_only.cpp:214 in ffn_only_top, ffn_down_b      |
+| interface       | s_axilite port=hidden_out                                                                                                   | ffn_only.cpp:215 in ffn_only_top, hidden_out      |
+| interface       | s_axilite port=return                                                                                                       | ffn_only.cpp:216 in ffn_only_top, return          |
+| bind_storage    | variable=hidden type=RAM_2P impl=URAM                                                                                       | ffn_only.cpp:221 in ffn_only_top, hidden          |
+| bind_storage    | variable=ffn_tile type=RAM_2P impl=BRAM                                                                                     | ffn_only.cpp:222 in ffn_only_top, ffn_tile        |
+| bind_storage    | variable=output type=RAM_2P impl=BRAM                                                                                       | ffn_only.cpp:223 in ffn_only_top, output          |
+| array_partition | variable=hidden cyclic factor=FO_PACK_SIZE dim=2                                                                            | ffn_only.cpp:224 in ffn_only_top, hidden          |
+| array_partition | variable=ffn_tile complete dim=2                                                                                            | ffn_only.cpp:225 in ffn_only_top, ffn_tile        |
+| array_partition | variable=output cyclic factor=FO_FFN2_OUT_PAR dim=2                                                                         | ffn_only.cpp:226 in ffn_only_top, output          |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:232 in ffn_only_top                  |
+| array_partition | variable=lane complete dim=1                                                                                                | ffn_only.cpp:234 in ffn_only_top, lane            |
+| unroll          |                                                                                                                             | ffn_only.cpp:238 in ffn_only_top                  |
+| pipeline        | II=1                                                                                                                        | ffn_only.cpp:256 in ffn_only_top                  |
+| array_partition | variable=lane complete dim=1                                                                                                | ffn_only.cpp:258 in ffn_only_top, lane            |
+| unroll          |                                                                                                                             | ffn_only.cpp:261 in ffn_only_top                  |
++-----------------+-----------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------+
+
+
